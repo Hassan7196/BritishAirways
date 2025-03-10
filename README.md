@@ -70,20 +70,6 @@ The dataset contains the following features:
 2. Most models achieved high overall accuracy (~85%) but struggled to predict class 1 accurately.
 3. Features like `purchase_lead`, `flight_duration`, and `wants_extra_baggage` showed some correlation with the target variable.
 
----
-
-## Recommendations
-1. Address dataset imbalance using techniques like SMOTE or undersampling.
-2. Experiment with advanced models like XGBoost or LightGBM.
-3. Perform hyperparameter tuning to optimize model performance.
-4. Collaborate with domain experts to derive more meaningful features.
-
----
-
-## Next Steps
-- Perform cross-validation to ensure model robustness.
-- Deploy the best-performing model in a production environment.
-- Continuously monitor and retrain the model as new data becomes available.
 
 ---
 
