@@ -11,12 +11,7 @@ This project focuses on predicting whether a customer will complete a booking ba
 3. [Key Steps](#key-steps)
 4. [Model Performance](#model-performance)
 5. [Key Findings](#key-findings)
-6. [Recommendations](#recommendations)
-7. [Next Steps](#next-steps)
-8. [How to Use This Repository](#how-to-use-this-repository)
-9. [Dependencies](#dependencies)
-10. [Contributing](#contributing)
-11. [License](#license)
+
 
 ---
 
