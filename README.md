@@ -1,24 +1,13 @@
 # Predictive Modeling for Customer Bookings: A British Airways Case Study
 
 ## Overview
-This project focuses on predicting whether a customer will complete a booking based on various features such as sales channel, trip type, purchase lead time, flight duration, and more. The dataset, provided by British Airways, contains **50,000 entries** with **14 features**. The goal is to build a machine learning model that can accurately predict booking completions and provide actionable insights for optimizing customer engagement and revenue.
+This project focuses on predicting whether a customer will complete a booking based on various features such as sales channel, trip type, purchase lead time, flight duration, and more. The dataset, provided by British Airways, contains 50,000 entries with 14 features. The goal is to build a machine learning model that can accurately predict booking completions and provide actionable insights for optimizing customer engagement and revenue.
 
-The goal of this project is to predict whether a customer will complete a booking based on historical booking data. The dataset includes features such as:
-- **Number of passengers**
-- **Sales channel** (Internet or Mobile)
-- **Trip type** (Round Trip, One Way, Circle Trip)
-- **Purchase lead** (time between booking and travel)
-- **Length of stay** (duration of the trip)
-- **Flight details** (hour, day, duration, route)
-- **Customer preferences** (extra baggage, preferred seat, in-flight meals)
-
-The project uses **machine learning** to analyze these features and predict booking completion. The insights gained can help British Airways optimize marketing strategies, improve customer engagement, and increase revenue.
-
-
----
+The project uses machine learning to analyze these features and predict booking completion. The insights gained can help British Airways optimize marketing strategies, improve customer engagement, and increase revenue.
 
 ## Dataset Description
 The dataset contains the following features:
+
 - **num_passengers**: Number of passengers traveling.
 - **sales_channel**: Sales channel used for booking (Internet or Mobile).
 - **trip_type**: Type of trip (Round Trip, One Way, Circle Trip).
@@ -34,21 +23,18 @@ The dataset contains the following features:
 - **flight_duration**: Total duration of the flight (in hours).
 - **booking_complete**: Target variable indicating whether the booking was completed (1) or not (0).
 
----
-
-
 ## Key Steps
 The project involved the following steps:
 
-### **1. Data Exploration and Preprocessing**
+### 1. Data Exploration and Preprocessing
 - **Handled Missing Values**: Checked for missing data and imputed if necessary.
 - **Outlier Handling**: Capped outliers in `purchase_lead` and `length_of_stay` using the IQR method.
 - **Feature Encoding**:
-  - Encoded categorical variables (`sales_channel`, `trip_type`, `flight_day`) using **Label Encoding**.
-  - Applied **Frequency Encoding** to high-cardinality features like `route` and `booking_origin`.
-- **Feature Scaling**: Scaled numerical features using **StandardScaler**.
+  - Encoded categorical variables (`sales_channel`, `trip_type`, `flight_day`) using Label Encoding.
+  - Applied Frequency Encoding to high-cardinality features like `route` and `booking_origin`.
+- **Feature Scaling**: Scaled numerical features using StandardScaler.
 
-### **2. Model Training**
+### 2. Model Training
 - **Train-Test Split**: Split the data into 70% training and 30% testing sets.
 - **Trained Multiple Models**:
   - Logistic Regression
@@ -59,47 +45,48 @@ The project involved the following steps:
   - K-Nearest Neighbors (KNN)
   - Naive Bayes
 
-### **3. Model Evaluation**
-- Evaluated models using **accuracy**, **precision**, **recall**, and **F1-score**.
-- Addressed class imbalance using **SMOTE** (Synthetic Minority Oversampling Technique).
-
----
+### 3. Model Evaluation
+- Evaluated models using accuracy, precision, recall, and F1-score.
+- Addressed class imbalance using SMOTE (Synthetic Minority Oversampling Technique).
 
 ## Model Performance
-Here’s a summary of the model performance:
-
 | Model               | Accuracy | Precision (Class 1) | Recall (Class 1) | F1-Score (Class 1) |
-|---------------------|----------|---------------------|------------------|--------------------|
-| Logistic Regression | 85.23%   | 0.00                | 0.00             | 0.00               |
-| Decision Tree       | 77.16%   | 0.26                | 0.30             | 0.28               |
-| Random Forest       | 85.22%   | 0.50                | 0.10             | 0.16               |
-| Gradient Boosting   | 85.28%   | 0.56                | 0.02             | 0.03               |
+|---------------------|----------|----------------------|-------------------|---------------------|
+| Logistic Regression | 65%      | 0.65                 | 0.68              | 0.66                |
+| Decision Tree      | 85%      | 0.84                 | 0.86              | 0.85                |
+| Random Forest      | 90%      | 0.93                 | 0.88              | 0.90                |
+| Gradient Boosting  | 84%      | 0.86                 | 0.81              | 0.83                |
+| SVC                | 64%      | 0.62                 | 0.78              | 0.69                |
+| KNN                | 81%      | 0.74                 | 0.96              | 0.83                |
+| Naive Bayes        | 64%      | 0.59                 | 0.89              | 0.71                |
 
-### **Best Model: Random Forest**
-- **Accuracy**: 85.22%
-- **Precision (Class 1)**: 0.50
-- **Recall (Class 1)**: 0.10
-- **F1-Score (Class 1)**: 0.16
+### Best Model: Tuned Random Forest
+| Metric       | Score |
+|-------------|--------|
+| Accuracy    | 91%    |
+| Precision (Class 1) | 0.93  |
+| Recall (Class 1) | 0.88  |
+| F1-Score (Class 1) | 0.90  |
 
----
+**Best Parameters Found using GridSearchCV:**
+- `max_depth`: None
+- `min_samples_split`: 2
+- `n_estimators`: 300
 
-## Key Findings
-1. **Class Imbalance**:
-   - The dataset is imbalanced, with only ~15% of bookings being completed (class 1).
-   - Most models achieved high overall accuracy (~85%) but struggled to predict class 1 accurately.
+### Key Findings
+#### Class Imbalance:
+- The dataset is imbalanced, with only ~15% of bookings being completed (class 1).
+- Most models achieved high overall accuracy (~85-91%) but struggled to predict class 1 effectively.
 
-2. **Important Features**:
-   - `purchase_lead`, `flight_duration`, and `wants_extra_baggage` showed some correlation with the target variable.
-   - `route` and `booking_origin` were also significant predictors.
+#### Important Features:
+- `flight_duration`, `booking_origin_encoded`, and `route_freq_encoded` were the most significant predictors of booking completion.
+- `purchase_lead_capped` and `length_of_stay_capped` also contributed significantly.
 
-3. **Challenges**:
-   - The imbalance in the dataset made it difficult for models to predict class 1 effectively.
-   - Feature engineering and advanced techniques like SMOTE were used to address this issue.
+#### Challenges:
+- The imbalance in the dataset made it difficult for models to predict class 1 effectively.
+- Feature engineering and advanced techniques like SMOTE were used to address this issue.
 
----
----
+### Conclusion
+The **Tuned Random Forest Model** performed the best, achieving 91% accuracy with strong precision and recall for class 1. This model can be used to help British Airways optimize customer engagement strategies and increase booking completions.
 
-## How to Use This Repository
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/predictive-modeling-british-airways.git
+
